@@ -10,9 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nearform/sql": "^1.8.0",
+    "ajv": "^8.6.2",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fluent-json-schema": "^3.0.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "uuid": "^8.3.2"
   }
 }
