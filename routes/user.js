@@ -4,15 +4,13 @@ api.use(express.json());
 const cors = require("cors");
 api.use(cors());
 const router = express.Router();
-const { query } = require("../data/db");
+const { registerUser } = require("../data/usersdb");
 
 // Register New User
 router.post("/addNewUser", async (req, res) => {
   try {
-    const { email, firstName, lastName, password, phone } = req.body;
-    console.log("'req.body' from routes/user.js", req.body);
-    let sql = `INSERT INTO users (email, firstName, lastName, password, phone) VALUES ('${email}', '${firstName}', '${lastName}', '${password}', ${phone})`;
-    await query(sql), res.send("WORKED");
+    registerUser(req.body);
+    res.send("Success - post request from router.user/addNewUser");
   } catch (error) {
     res.status(400).send(error.message);
     console.log(error);
