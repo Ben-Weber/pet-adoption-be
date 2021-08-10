@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
-// const SQL = require("@nearform/sql");
 
 const api = express();
 api.use(express.json());
