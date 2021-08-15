@@ -6,6 +6,7 @@ api.use(express.json());
 api.use(cors());
 
 api.use("/user", require("./routes/user"));
+api.use("/pets", require("./routes/pets"));
 
 api.use("/", (req, res) => {
   res.send("Welcome to Home Page");

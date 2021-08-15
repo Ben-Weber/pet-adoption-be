@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
@@ -8,21 +9,13 @@ api.use(cors());
 
 // Connection to MySQL
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Huskies11",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
   // insecureAuth: true,
-  database: "petapet",
+  database: process.env.DB_NAME,
 });
 exports.db = db;
-
-// Testing Connection
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("MySQL Connected Succesfully");
-});
 
 // Query BoilerPlate
 const query = (queryText) => {
@@ -37,3 +30,11 @@ const query = (queryText) => {
   });
 };
 exports.query = query;
+
+// Testing Connection
+db.connect((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log("MySQL Connected Succesfully");
+});
