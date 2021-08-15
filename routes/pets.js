@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { addPet, getPetInfo } = require("../data/petsdb");
+const { addPet, getPetInfo } = require("../mysqldb/petsdb");
 
 const api = express();
 api.use(cors());

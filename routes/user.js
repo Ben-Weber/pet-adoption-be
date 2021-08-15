@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { registerUser } = require("../data/usersdb");
+const { registerUser, loginUser } = require("../mysqldb/usersdb");
+const auth = require("../mysqldb/authentication");
 
 const api = express();
 api.use(express.json());
@@ -13,9 +14,34 @@ router.post("/signup", async (req, res) => {
     await registerUser(req.body);
     res.send("Success - post request from router.user/signup");
   } catch (error) {
-    res.status(400).send(error.message);
     console.log(error);
+    res.status(400).send(error.message);
   }
 });
+
+// Login User
+router.post("/login", async (req, res) => {
+  try {
+    await loginUser(req.body);
+    res.send(`"Login Success" ${req.body.email} --> ${req.body.password}`);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
+});
+
+// user Authentication
+// router.post("/login", async (req, res) => {
+//   const user = await getUserByEmailAndPassword(
+//     req.body.email,
+//     req.body.password
+//   );
+//   if (!user) {
+//     res.sendStatus(401).send({ error: "Bad email or password" });
+//     return;
+//   }
+//   const token = auth.sign({ id: user.id });
+//   res.send({ user: { name: user.name, email: user.email }, token });
+// });
 
 module.exports = router;
