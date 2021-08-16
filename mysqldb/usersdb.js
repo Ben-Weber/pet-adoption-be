@@ -1,7 +1,8 @@
 const { query } = require("../mysqldb/db");
 const SQL = require("@nearform/sql");
 const bcrypt = require("bcrypt");
-const { sign } = require("./authentication");
+// const { authentication } = require("../middlewares/authentication");
+const { sign } = require("../lib/auth");
 
 const registerUser = async (user) => {
   try {
@@ -18,11 +19,12 @@ const registerUser = async (user) => {
 exports.registerUser = registerUser;
 
 const getUserByEmail = async (email) => {
+  console.log("email -", email);
   try {
     const queryResult = await query(
       SQL`SELECT * FROM users WHERE email = ${email}`
     );
-    console.log("queryResult", queryResult[0]);
+    console.log("queryResult[0] -", queryResult[0]);
     return queryResult[0];
   } catch (error) {
     console.log(error);
@@ -30,13 +32,24 @@ const getUserByEmail = async (email) => {
 };
 exports.getUserByEmail = getUserByEmail;
 
-const loginUser = async (user) => {
+const getLastUser = async () => {
+  const queryResult = await query(
+    SQL`SELECT * from users ORDER BY id DESC LIMIT 1;`
+  );
+  console.log("queryResult[0] -", queryResult[0]);
+  return queryResult[0];
+};
+exports.getLastUser = getLastUser;
+
+const loginUser_clgOnly = async (user) => {
   try {
     const { email, password } = user;
-    const token = sign({ id: email });
-    console.log(email, password, token);
+    // hash password
+    const passwordHashing = await bcrypt.hash(password, 8);
+    const passwordHashed = passwordHashing;
+    console.log(email, "passwordHashed", passwordHashed);
   } catch (error) {
     console.log(error);
   }
 };
-exports.loginUser = loginUser;
+exports.loginUser_clgOnly = loginUser_clgOnly;
