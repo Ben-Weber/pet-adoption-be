@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { registerUser, loginUser } = require("../mysqldb/usersdb");
+const {
+  registerUser,
+  getUserByEmail,
+  loginUser,
+} = require("../mysqldb/usersdb");
 const auth = require("../mysqldb/authentication");
 
 const api = express();
 api.use(express.json());
 api.use(cors());
 
-// Register New User
 router.post("/signup", async (req, res) => {
   try {
     await registerUser(req.body);
@@ -19,9 +22,15 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login User
 router.post("/login", async (req, res) => {
   try {
+    let user = null;
+    // checks if user in db
+    user = await getUserByEmail(req.body.email);
+    if (!user) {
+      res.status(401).send("we didn't find this user");
+    }
+    // gives token
     await loginUser(req.body);
     res.send(`"Login Success" ${req.body.email} --> ${req.body.password}`);
   } catch (error) {

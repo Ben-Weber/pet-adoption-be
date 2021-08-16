@@ -17,6 +17,19 @@ const registerUser = async (user) => {
 };
 exports.registerUser = registerUser;
 
+const getUserByEmail = async (email) => {
+  try {
+    const queryResult = await query(
+      SQL`SELECT * FROM users WHERE email = ${email}`
+    );
+    console.log("queryResult", queryResult[0]);
+    return queryResult[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getUserByEmail = getUserByEmail;
+
 const loginUser = async (user) => {
   try {
     const { email, password } = user;
