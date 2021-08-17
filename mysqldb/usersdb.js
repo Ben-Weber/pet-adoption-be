@@ -1,8 +1,6 @@
 const { query } = require("../mysqldb/db");
 const SQL = require("@nearform/sql");
 const bcrypt = require("bcrypt");
-// const { authentication } = require("../middlewares/authentication");
-const { sign } = require("../lib/auth");
 
 const registerUser = async (user) => {
   try {
@@ -19,12 +17,11 @@ const registerUser = async (user) => {
 exports.registerUser = registerUser;
 
 const getUserByEmail = async (email) => {
-  console.log("email -", email);
   try {
     const queryResult = await query(
       SQL`SELECT * FROM users WHERE email = ${email}`
     );
-    console.log("queryResult[0] -", queryResult[0]);
+    console.log("{usersdb:26} queryResult[0] -", queryResult[0]);
     return queryResult[0];
   } catch (error) {
     console.log(error);
@@ -44,10 +41,9 @@ exports.getLastUser = getLastUser;
 const loginUser_clgOnly = async (user) => {
   try {
     const { email, password } = user;
-    // hash password
     const passwordHashing = await bcrypt.hash(password, 8);
     const passwordHashed = passwordHashing;
-    console.log(email, "passwordHashed", passwordHashed);
+    console.log("{userdb:50}", email, "passwordHashed", passwordHashed);
   } catch (error) {
     console.log(error);
   }
