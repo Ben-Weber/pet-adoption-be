@@ -41,8 +41,7 @@ exports.getLastUser = getLastUser;
 const loginUser_clgOnly = async (user) => {
   try {
     const { email, password } = user;
-    const passwordHashing = await bcrypt.hash(password, 8);
-    const passwordHashed = passwordHashing;
+    const passwordHashed = await bcrypt.hash(password, 8);
     console.log("{userdb:50}", email, "passwordHashed", passwordHashed);
   } catch (error) {
     console.log(error);

@@ -5,7 +5,6 @@ const {
   registerUser,
   getUserByEmail,
   loginUser_clgOnly,
-  getLastUser,
 } = require("../mysqldb/usersdb");
 const bcrypt = require("bcrypt");
 const authenticate = require("../middlewares/authentication");
@@ -33,7 +32,7 @@ router.post("/signup", validationMid(usersSchemaSignUp), async (req, res) => {
 router.post("/login", validationMid(usersSchemaLogin), async (req, res) => {
   try {
     // checks if user in db
-    let user = null;
+    let user;
     user = await getUserByEmail(req.body.email);
     console.log("{user:42} req.body.email-", req.body.email);
     if (!user) {
