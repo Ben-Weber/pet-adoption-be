@@ -4,9 +4,8 @@ const authenticate = () => {
   return (req, res, next) => {
     const secretKey = "oijfkdsfjodsf843jfe89jfd9843fj9438fj9843jf9843fj9843";
     try {
-      console.log("{authentication:8} req.headers", req.headers);
       console.log(
-        "{authentication:9} req.headers.authorization",
+        "{authentication:8} req.headers.authorization",
         req.headers.authorization
       );
       if (req.headers.authorization) {
