@@ -26,15 +26,26 @@ const addPet = async (pet) => {
 };
 exports.addPet = addPet;
 
-// get pet info from the database
+// get pet info
 const getPetInfo = async () => {
   try {
-    const queryResult = await query(
-      SQL`SELECT * FROM petapet.pets WHERE petId=1`
-    );
+    const queryResult = await query(SQL`SELECT * FROM pets`);
     return queryResult;
   } catch (error) {
     console.log(error);
   }
 };
 exports.getPetInfo = getPetInfo;
+
+// get pet info by id
+const getPetById = async (petId) => {
+  try {
+    const queryResult = await query(
+      SQL`SELECT * FROM pets WHERE petId = ${petId}`
+    );
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getPetById = getPetById;
