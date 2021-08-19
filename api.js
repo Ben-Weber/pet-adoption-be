@@ -5,8 +5,8 @@ const api = express();
 api.use(express.json());
 api.use(cors());
 
-api.use("/user", require("./routes/user"));
-api.use("/pets", require("./routes/pets"));
+api.use("/user", require("./routes/user.routes"));
+api.use("/pets", require("./routes/pets.routes"));
 
 api.use("/", (req, res) => {
   res.send("Welcome to Home Page");

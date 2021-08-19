@@ -4,7 +4,7 @@ const cors = require("cors");
 const {
   registerUser,
   getUserByEmail,
-  loginUser_clgOnly,
+  loginUser,
 } = require("../mysqldb/usersdb");
 const bcrypt = require("bcrypt");
 const authenticate = require("../middlewares/authentication");
@@ -34,7 +34,6 @@ router.post("/login", validationMid(usersSchemaLogin), async (req, res) => {
     // checks if user in db
     let user;
     user = await getUserByEmail(req.body.email);
-    console.log("{user:42} req.body.email-", req.body.email);
     if (!user) {
       res.status(401).send("we didn't find this user");
       return;
@@ -51,12 +50,12 @@ router.post("/login", validationMid(usersSchemaLogin), async (req, res) => {
     }
 
     // continues login process
-    await loginUser_clgOnly(req.body);
+    await loginUser(req.body);
 
     // assign token
     const token = sign({ id: user.userId });
 
-    res.send(token);
+    res.send({ user: user, token: token });
   } catch (error) {
     console.log(error);
     res.status(400).send(error.message);

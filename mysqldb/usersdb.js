@@ -21,7 +21,6 @@ const getUserByEmail = async (email) => {
     const queryResult = await query(
       SQL`SELECT * FROM users WHERE email = ${email}`
     );
-    console.log("{usersdb:26} queryResult[0] -", queryResult[0]);
     return queryResult[0];
   } catch (error) {
     console.log(error);
@@ -38,13 +37,13 @@ const getLastUser = async () => {
 };
 exports.getLastUser = getLastUser;
 
-const loginUser_clgOnly = async (user) => {
+const loginUser = async (user) => {
   try {
-    const { email, password } = user;
-    const passwordHashed = await bcrypt.hash(password, 8);
-    console.log("{userdb:50}", email, "passwordHashed", passwordHashed);
+    const { password } = user;
+    await bcrypt.hash(password, 8);
+    return;
   } catch (error) {
     console.log(error);
   }
 };
-exports.loginUser_clgOnly = loginUser_clgOnly;
+exports.loginUser = loginUser;
