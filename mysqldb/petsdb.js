@@ -49,3 +49,17 @@ const getPetById = async (petId) => {
   }
 };
 exports.getPetById = getPetById;
+
+// Update Pet Status in DB
+const updatePetStatus = async (ownership) => {
+  try {
+    const { petId, userId, petStatus } = ownership;
+    const queryResult = await query(
+      SQL`UPDATE petapet.pets SET userId=${userId}, petStatus=${petStatus} WHERE petId = ${petId}`
+    );
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.updatePetStatus = updatePetStatus;

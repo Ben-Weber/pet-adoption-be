@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { addPet, getPetInfo, getPetById } = require("../mysqldb/petsdb");
+const {
+  addPet,
+  getPetInfo,
+  getPetById,
+  updatePetStatus,
+} = require("../mysqldb/petsdb");
 
 const api = express();
 api.use(cors());
@@ -34,6 +39,16 @@ router.get("/getPetById/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await getPetById(id);
+    res.send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+    console.log(error);
+  }
+});
+
+router.post("/updatePetStatus", async (req, res) => {
+  try {
+    const result = await updatePetStatus(req.body);
     res.send(result);
   } catch (error) {
     res.status(400).send(error.message);
