@@ -15,7 +15,6 @@ const authenticate = require("../middlewares/authentication");
 const api = express();
 api.use(cors());
 api.use(express.json());
-
 // Add New Pet
 router.post("/addPet", async (req, res) => {
   try {
