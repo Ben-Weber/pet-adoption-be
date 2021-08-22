@@ -26,7 +26,7 @@ const addPet = async (pet) => {
 };
 exports.addPet = addPet;
 
-// get pet info
+// get pet from the db
 const getPetInfo = async () => {
   try {
     const queryResult = await query(SQL`SELECT * FROM pets`);
@@ -49,6 +49,50 @@ const getPetById = async (petId) => {
   }
 };
 exports.getPetById = getPetById;
+
+// Get Favorite Pets
+const getUserFavoritePets = async (data) => {
+  const { userId } = data;
+  try {
+    const queryResult = await query(SQL`SELECT * FROM pets
+        INNER JOIN favoritepets
+        ON pets.petId = favoritepets.petId AND favoritepets.userId = ${userId};`);
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getUserFavoritePets = getUserFavoritePets;
+
+// Add Favorite Pet
+const addFavoritePet = async (pet) => {
+  console.log("pet db fav -->", pet);
+  try {
+    const { petId, userId } = pet;
+    const queryResult = await query(
+      SQL`INSERT INTO favoritepets (petId, userId) VALUES (${petId}, ${userId});`
+    );
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.addFavoritePet = addFavoritePet;
+
+// Remove Favorite Pet
+const removeFavoritePet = async (pet) => {
+  console.log("pet db remove -->", pet);
+  try {
+    const { petId, userId } = pet;
+    const queryResult = await query(
+      SQL`DELETE FROM favoritepets WHERE petId = ${petId} AND userId=${userId};`
+    );
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.removeFavoritePet = removeFavoritePet;
 
 // Update Pet Status in DB
 const updatePetStatus = async (ownership) => {
