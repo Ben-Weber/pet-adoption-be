@@ -122,8 +122,8 @@ const searchResult = async (data) => {
   // }
   try {
     const queryResult = await query(
-      SQL`SELECT * FROM petapet.pets 
-      WHERE petName LIKE ${animalName} 
+      SQL`SELECT * FROM petapet.pets
+      WHERE petName LIKE ${animalName}
       AND petStatus LIKE ${animalStatus}
       AND petType LIKE ${animalType}
       AND weight LIKE ${minWeight} AND weight LIKE ${maxWeight}
