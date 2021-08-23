@@ -1,7 +1,6 @@
 const { query } = require("./db");
 const SQL = require("@nearform/sql");
 
-// add a pet to the db
 const addPet = async (pet) => {
   try {
     const {
@@ -27,7 +26,6 @@ const addPet = async (pet) => {
 };
 exports.addPet = addPet;
 
-// get pet from the db
 const getPetInfo = async () => {
   try {
     const queryResult = await query(SQL`SELECT * FROM pets`);
@@ -38,7 +36,6 @@ const getPetInfo = async () => {
 };
 exports.getPetInfo = getPetInfo;
 
-// get pet info by id
 const getPetById = async (petId) => {
   try {
     const queryResult = await query(
@@ -51,7 +48,6 @@ const getPetById = async (petId) => {
 };
 exports.getPetById = getPetById;
 
-// Get Favorite Pets
 const getUserFavoritePets = async (data) => {
   const { userId } = data;
   try {
@@ -65,7 +61,6 @@ const getUserFavoritePets = async (data) => {
 };
 exports.getUserFavoritePets = getUserFavoritePets;
 
-// Add Favorite Pet
 const addFavoritePet = async (pet) => {
   console.log("pet db fav -->", pet);
   try {
@@ -80,7 +75,6 @@ const addFavoritePet = async (pet) => {
 };
 exports.addFavoritePet = addFavoritePet;
 
-// Remove Favorite Pet
 const removeFavoritePet = async (pet) => {
   console.log("pet db remove -->", pet);
   try {
@@ -95,7 +89,6 @@ const removeFavoritePet = async (pet) => {
 };
 exports.removeFavoritePet = removeFavoritePet;
 
-// Update Pet Status in DB
 const updatePetStatus = async (ownership) => {
   try {
     const { petId, userId, petStatus } = ownership;
@@ -108,3 +101,38 @@ const updatePetStatus = async (ownership) => {
   }
 };
 exports.updatePetStatus = updatePetStatus;
+
+const searchResult = async (data) => {
+  const {
+    animalName,
+    animalStatus,
+    animalType,
+    minWeight,
+    maxWeight,
+    minHeight,
+    maxHeight,
+  } = data;
+  // if (minWeight == "%%") {
+  //   console.log("minWeight = %%");
+  //   const minWeightYes = `LIKE ${minWeight}`;
+  //   return minWeightYes;
+  // } else {
+  //   const minWeightNo = `>= ${minWeight}`;
+  //   return minWeightNo;
+  // }
+  try {
+    const queryResult = await query(
+      SQL`SELECT * FROM petapet.pets 
+      WHERE petName LIKE ${animalName} 
+      AND petStatus LIKE ${animalStatus}
+      AND petType LIKE ${animalType}
+      AND weight LIKE ${minWeight} AND weight LIKE ${maxWeight}
+      AND height LIKE ${minHeight} AND height LIKE ${maxHeight}
+      ;`
+    );
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.searchResult = searchResult;

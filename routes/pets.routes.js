@@ -9,8 +9,10 @@ const {
   addFavoritePet,
   removeFavoritePet,
   getUserFavoritePets,
+  searchResult,
 } = require("../mysqldb/petsdb");
 const authenticate = require("../middlewares/authentication");
+const { filterQuery } = require("../middlewares/validation");
 
 const api = express();
 api.use(cors());
@@ -88,6 +90,19 @@ router.post("/updatePetStatus", async (req, res) => {
   try {
     const result = await updatePetStatus(req.body);
     res.send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+    console.log(error);
+  }
+});
+
+// Search Results
+router.post("/searchResult", filterQuery, async (req, res) => {
+  try {
+    console.log("req.body", req.body);
+    const result = await searchResult(req.body);
+    res.send(result);
+    console.log("pets.routes:103", result);
   } catch (error) {
     res.status(400).send(error.message);
     console.log(error);

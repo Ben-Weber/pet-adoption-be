@@ -33,3 +33,31 @@ const usersSchemaSignUp = S.object()
   .prop("phone", S.number())
   .valueOf();
 exports.usersSchemaSignUp = usersSchemaSignUp;
+
+const filterQuery = (req, res, next) => {
+  let query = req.body;
+  if (query.animalName == null) {
+    query.animalName = "%%";
+  }
+  if (query.animalStatus == null) {
+    query.animalStatus = "%%";
+  }
+  if (query.animalType == null) {
+    query.animalType = "%%";
+  }
+  if (query.minWeight == null) {
+    query.minWeight = "%%";
+  }
+  if (query.maxWeight == null) {
+    query.maxWeight = "%%";
+  }
+  if (query.minHeight == null) {
+    query.minHeight = "%%";
+  }
+  if (query.maxHeight == null) {
+    query.maxHeight = "%%";
+  }
+  query = req.body;
+  next();
+};
+exports.filterQuery = filterQuery;
