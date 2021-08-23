@@ -15,9 +15,10 @@ const addPet = async (pet) => {
       Color,
       Adoption,
       Hypoallergenic,
+      imageUrl,
     } = pet;
     const queryResult = await query(
-      SQL`INSERT INTO pets (petType, petName, breed, petBio, dietary, height, weight, color, petStatus, hypoallergenic) VALUES (${Type},${Name},${Breed},${Bio},${Dietary},${Height},${Weight},${Color},${Adoption},${Hypoallergenic});`
+      SQL`INSERT INTO pets (petType, petName, breed, petBio, dietary, height, weight, color, petStatus, hypoallergenic, image) VALUES (${Type},${Name},${Breed},${Bio},${Dietary},${Height},${Weight},${Color},${Adoption},${Hypoallergenic}, ${imageUrl});`
     );
     return queryResult;
   } catch (error) {
