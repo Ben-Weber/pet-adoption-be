@@ -112,14 +112,6 @@ const searchResult = async (data) => {
     minHeight,
     maxHeight,
   } = data;
-  // if (minWeight == "%%") {
-  //   console.log("minWeight = %%");
-  //   const minWeightYes = `LIKE ${minWeight}`;
-  //   return minWeightYes;
-  // } else {
-  //   const minWeightNo = `>= ${minWeight}`;
-  //   return minWeightNo;
-  // }
   try {
     const queryResult = await query(
       SQL`SELECT * FROM petapet.pets

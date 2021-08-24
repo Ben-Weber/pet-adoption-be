@@ -58,6 +58,7 @@ const filterQuery = (req, res, next) => {
     query.maxHeight = "%%";
   }
   query = req.body;
+  
   next();
 };
 exports.filterQuery = filterQuery;

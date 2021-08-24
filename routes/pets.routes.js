@@ -102,7 +102,6 @@ router.post("/searchResult", filterQuery, async (req, res) => {
     console.log("req.body", req.body);
     const result = await searchResult(req.body);
     res.send(result);
-    console.log("pets.routes:103", result);
   } catch (error) {
     res.status(400).send(error.message);
     console.log(error);
