@@ -17,7 +17,7 @@ const { filterQuery } = require("../middlewares/validation");
 const api = express();
 api.use(cors());
 api.use(express.json());
-// Add New Pet
+
 router.post("/addPet", async (req, res) => {
   try {
     await addPet(req.body);
@@ -28,7 +28,6 @@ router.post("/addPet", async (req, res) => {
   }
 });
 
-// Get Pet info
 router.get("/getPetInfo", async (req, res) => {
   try {
     const result = await getPetInfo();
@@ -39,7 +38,6 @@ router.get("/getPetInfo", async (req, res) => {
   }
 });
 
-// Get Pet By Id
 router.get("/getPetById/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -51,7 +49,6 @@ router.get("/getPetById/:id", async (req, res) => {
   }
 });
 
-// Add Favorite Pet
 router.post("/addFavoritePet", async (req, res) => {
   try {
     await addFavoritePet(req.body);
@@ -62,7 +59,6 @@ router.post("/addFavoritePet", async (req, res) => {
   }
 });
 
-// Remove Favorite Pet
 router.post("/removeFavoritePet", async (req, res) => {
   try {
     await removeFavoritePet(req.body);
@@ -73,7 +69,6 @@ router.post("/removeFavoritePet", async (req, res) => {
   }
 });
 
-// Get Favorite Pets
 router.get(`/favoritePets`, async (req, res) => {
   const query = (user = req.query);
   try {
@@ -85,7 +80,6 @@ router.get(`/favoritePets`, async (req, res) => {
   }
 });
 
-// Update Pet Status
 router.post("/updatePetStatus", async (req, res) => {
   try {
     const result = await updatePetStatus(req.body);
@@ -96,7 +90,6 @@ router.post("/updatePetStatus", async (req, res) => {
   }
 });
 
-// Search Results
 router.post("/searchResult", filterQuery, async (req, res) => {
   try {
     console.log("req.body", req.body);

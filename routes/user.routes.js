@@ -5,6 +5,7 @@ const {
   registerUser,
   getUserByEmail,
   loginUser,
+  getAllUsers,
 } = require("../mysqldb/usersdb");
 const bcrypt = require("bcrypt");
 const authenticate = require("../middlewares/authentication");
@@ -64,6 +65,16 @@ router.post("/login", validationMid(usersSchemaLogin), async (req, res) => {
 
 router.get("/new", authenticate(), (req, res) => {
   res.send("success");
+});
+
+router.get(`/getAllUsers`, async (req, res) => {
+  try {
+    const result = await getAllUsers();
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
 });
 
 module.exports = router;

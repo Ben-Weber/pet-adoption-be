@@ -47,3 +47,13 @@ const loginUser = async (user) => {
   }
 };
 exports.loginUser = loginUser;
+
+const getAllUsers = async () => {
+  try {
+    const queryResult = await query(SQL`SELECT * FROM users;`);
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getAllUsers = getAllUsers;
