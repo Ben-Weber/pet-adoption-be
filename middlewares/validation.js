@@ -46,19 +46,19 @@ const filterQuery = (req, res, next) => {
     query.animalType = "%%";
   }
   if (query.minWeight == null) {
-    query.minWeight = "%%";
+    query.minWeight = "0";
   }
   if (query.maxWeight == null) {
-    query.maxWeight = "%%";
+    query.maxWeight = "999999999";
   }
   if (query.minHeight == null) {
-    query.minHeight = "%%";
+    query.minHeight = "0";
   }
   if (query.maxHeight == null) {
-    query.maxHeight = "%%";
+    query.maxHeight = "999999999";
   }
   query = req.body;
-  
+
   next();
 };
 exports.filterQuery = filterQuery;

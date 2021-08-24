@@ -118,8 +118,8 @@ const searchResult = async (data) => {
       WHERE petName LIKE ${animalName}
       AND petStatus LIKE ${animalStatus}
       AND petType LIKE ${animalType}
-      AND weight LIKE ${minWeight} AND weight LIKE ${maxWeight}
-      AND height LIKE ${minHeight} AND height LIKE ${maxHeight}
+      AND weight >= ${minWeight} AND weight <= ${maxWeight}
+      AND height >= ${minHeight} AND height <= ${maxHeight}
       ;`
     );
     return queryResult;
