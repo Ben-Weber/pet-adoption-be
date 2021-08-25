@@ -116,8 +116,8 @@ router.get(`/adoptedPets`, async (req, res) => {
 
 router.put("/updatePetInfo", async (req, res) => {
   try {
-    console.log("req.body", req.body);
-    const result = await updatePetInfo(req.body);
+    console.log("req.body", req.body.petInfo);
+    const result = await updatePetInfo(req.body.petInfo);
     console.log("result", result);
     res.send(result);
   } catch (error) {

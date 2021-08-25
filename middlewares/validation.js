@@ -39,6 +39,9 @@ const filterQuery = (req, res, next) => {
   if (query.animalName == null) {
     query.animalName = "%%";
   }
+  if (query.animalName != null) {
+    query.animalName = `%${query.animalName}%`;
+  }
   if (query.animalStatus == null) {
     query.animalStatus = "%%";
   }
