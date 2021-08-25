@@ -129,6 +129,18 @@ const searchResult = async (data) => {
 };
 exports.searchResult = searchResult;
 
+const getUserAdoptedPets = async (data) => {
+  const { userId } = data;
+  try {
+    const queryResult = await query(SQL`SELECT * FROM pets
+		WHERE pets.userId = ${userId} AND pets.petStatus = 'Adopted';`);
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getUserAdoptedPets = getUserAdoptedPets;
+
 const updatePetInfo = async (petInfo) => {
   try {
     const {

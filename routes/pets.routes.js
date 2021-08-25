@@ -10,6 +10,7 @@ const {
   removeFavoritePet,
   getUserFavoritePets,
   searchResult,
+  getUserAdoptedPets,
   updatePetInfo,
 } = require("../mysqldb/petsdb");
 const authenticate = require("../middlewares/authentication");
@@ -99,6 +100,17 @@ router.post("/searchResult", filterQuery, async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
     console.log(error);
+  }
+});
+
+router.get(`/adoptedPets`, async (req, res) => {
+  const query = ("adoptedPets", (user = req.query));
+  try {
+    const result = await getUserAdoptedPets(query);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
   }
 });
 
