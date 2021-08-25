@@ -10,6 +10,7 @@ const {
   removeFavoritePet,
   getUserFavoritePets,
   searchResult,
+  updatePetInfo,
 } = require("../mysqldb/petsdb");
 const authenticate = require("../middlewares/authentication");
 const { filterQuery } = require("../middlewares/validation");
@@ -94,6 +95,18 @@ router.post("/searchResult", filterQuery, async (req, res) => {
   try {
     console.log("req.body", req.body);
     const result = await searchResult(req.body);
+    res.send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
+    console.log(error);
+  }
+});
+
+router.put("/updatePetInfo", async (req, res) => {
+  try {
+    console.log("req.body", req.body);
+    const result = await updatePetInfo(req.body);
+    console.log("result", result);
     res.send(result);
   } catch (error) {
     res.status(400).send(error.message);

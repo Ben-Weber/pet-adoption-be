@@ -128,3 +128,30 @@ const searchResult = async (data) => {
   }
 };
 exports.searchResult = searchResult;
+
+const updatePetInfo = async (petInfo) => {
+  try {
+    const {
+      petId,
+      name,
+      type,
+      height,
+      weight,
+      color,
+      bio,
+      hypoallergenic,
+      diet,
+      breed,
+      img,
+    } = petInfo;
+    console.log("petInfo", petInfo);
+    const queryResult = await query(
+      SQL`UPDATE petapet.pets SET petName=${name}, petType=${type}, height=${height}, weight=${weight}, color=${color}, petBio=${bio}, hypoallergenic=${hypoallergenic}, dietary=${diet}, breed=${breed}, image=${img} WHERE petId = ${petId}`
+    );
+    console.log("queryResult", queryResult);
+    return queryResult;
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.updatePetInfo = updatePetInfo;

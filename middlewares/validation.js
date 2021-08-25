@@ -42,7 +42,7 @@ const filterQuery = (req, res, next) => {
   if (query.animalStatus == null) {
     query.animalStatus = "%%";
   }
-  if (query.animalType == null) {
+  if (query.animalType == null || query.animalType == "Any") {
     query.animalType = "%%";
   }
   if (query.minWeight == null) {
