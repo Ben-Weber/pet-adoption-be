@@ -63,7 +63,7 @@ router.post("/login", validationMid(usersSchemaLogin), async (req, res) => {
   }
 });
 
-router.get("/new", authenticate(), (req, res) => {
+router.get("/test", authenticate(), (req, res) => {
   res.send("success");
 });
 
