@@ -152,13 +152,12 @@ const updatePetInfo = async (petInfo) => {
       color,
       bio,
       hypoallergenic,
-      diet,
       breed,
       status,
       img,
     } = petInfo;
     const queryResult = await query(
-      SQL`UPDATE petapet.pets SET petName=${name}, petType=${type}, height=${height}, weight=${weight}, color=${color}, petBio=${bio}, hypoallergenic=${hypoallergenic}, dietary=${diet}, breed=${breed}, image=${img}, petStatus=${status} WHERE petId = ${petId}`
+      SQL`UPDATE petapet.pets SET petName=${name}, petType=${type}, height=${height}, weight=${weight}, color=${color}, petBio=${bio}, hypoallergenic=${hypoallergenic}, breed=${breed}, image=${img}, petStatus=${status} WHERE petId = ${petId}`
     );
     console.log("queryResult", queryResult);
     return queryResult;
