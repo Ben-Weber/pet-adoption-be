@@ -12,6 +12,9 @@ const registerUser = async (user) => {
     return queryResult;
   } catch (error) {
     console.log(error);
+    return {
+      error: "register unsuccessful",
+    };
   }
 };
 exports.registerUser = registerUser;

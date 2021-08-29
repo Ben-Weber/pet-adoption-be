@@ -22,7 +22,10 @@ api.use(cors());
 
 router.post("/signup", validationMid(usersSchemaSignUp), async (req, res) => {
   try {
-    await registerUser(req.body);
+    const register = await registerUser(req.body);
+    if (register.error) {
+      return res.status(400).send(register.error);
+    }
     res.send("Success - post request from router.user/signup");
   } catch (error) {
     console.log(error);
